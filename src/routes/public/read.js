@@ -2,7 +2,6 @@ import express from 'express'
 import bcrypt from 'bcryptjs'
 import jwt from 'jsonwebtoken'
 import { models } from 'mongoose'
-import Cerrado from '../../models/operations/cerrado'
 
 const router = express.Router()
 
@@ -18,7 +17,7 @@ router.post('/login', async (req, res) => {
     if (!userFinded.allowLogin) return res.json({ error: 'Acceso denegado' })
 
     userFinded.userPassword = null
-    const token = jwt.sign({ user: userFinded }, process.env.TOKEN_SECRET)
+    const token = jwt.sign({ user: userFinded }, process.env.TOKEN)
     res.header('auth-token', token).json({ token, user: userFinded })
 
   } catch (error) {
@@ -26,15 +25,6 @@ router.post('/login', async (req, res) => {
     return res.status(400).json({
       error
     })
-  }
-})
-
-router.get('/cerrados', async (req, res) => {
-  try {
-    const result = await models['Request'].find()
-    res.json(result)
-  } catch (error) {
-    res.status(400).json({ error })
   }
 })
 
