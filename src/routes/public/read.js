@@ -28,20 +28,13 @@ router.post('/login', async (req, res) => {
   }
 })
 
-router.get('/closeds', async (req, res) => {
-  try {
-    const result = await models['Closed'].find()
-    res.json(result)
-  } catch (error) {
-    res.status(400).json({ error })
-  }
-})
-
 router.get('/:collection/:filter', async (req, res) => {
   const { collection } = req.params
   const model = models[collection]
-  const filter = collection === 'Closed'
-    ? { "reportedAt": { "$gte": req.params.filter } }
+  const filter = collection === 'Closed' || collection === 'Maintenance'
+    ? collection === 'Closed'
+      ? { "reportedAt": { "$gte": req.params.filter } }
+      : { "$or": [{ "status": { "$ne": 'Validado' } }, { "schedule.scheduledDate": { "$gte": req.params.filter } }] }
     : {}
   try {
     const queryResult = await model.find(filter, { userPassword: 0 })
