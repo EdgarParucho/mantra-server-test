@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "2de1ae41a7a55f29b6ad",
+    "revision": "71c5d404981bca04fdb6",
     "url": "/css/app.be0d5aa4.css"
   },
   {
@@ -148,12 +148,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/gear.d2f7a2f6.svg"
   },
   {
-    "revision": "f7006fd2c898b309a32ca96235d6f784",
-    "url": "/img/handshake.f7006fd2.svg"
-  },
-  {
     "revision": "bb7dcf84940ef263c857cabff152c39d",
-    "url": "/img/logoMfc.bb7dcf84.png"
+    "url": "/img/logo.bb7dcf84.png"
   },
   {
     "revision": "eeb5b1df3b1bb88747c2e5e9de2bc5d3",
@@ -172,10 +168,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/status.c96190ab.svg"
   },
   {
-    "revision": "73f5ad96606b29406ec4ab13f8ac30c8",
-    "url": "/img/target.73f5ad96.svg"
-  },
-  {
     "revision": "3f95dcabe09336c8b30d41082da3fe31",
     "url": "/img/technician.3f95dcab.svg"
   },
@@ -188,12 +180,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/typewriter.b829ae0d.svg"
   },
   {
-    "revision": "60a503643c3f1e6aae1fb893331b7c42",
+    "revision": "d890c18b95cc3747508800c77d30536e",
     "url": "/index.html"
   },
   {
-    "revision": "2de1ae41a7a55f29b6ad",
-    "url": "/js/app.d32816bd.js"
+    "revision": "71c5d404981bca04fdb6",
+    "url": "/js/app.aff06a33.js"
   },
   {
     "revision": "2028ad26ce0028d164e9",
