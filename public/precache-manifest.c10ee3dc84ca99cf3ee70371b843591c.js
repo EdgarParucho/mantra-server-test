@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "cf5adf7e640424c221a0",
+    "revision": "0faf9bb1620a5b13d0dd",
     "url": "/css/app.be0d5aa4.css"
   },
   {
@@ -120,64 +120,48 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/fonts/materialdesignicons-webfont.7a44ea19.woff2"
   },
   {
-    "revision": "7533ae651d2080e97618b5bdb6255cca",
-    "url": "/img/bank.7533ae65.svg"
-  },
-  {
-    "revision": "7e14a4607d10b90fc2c97f2a43317ac4",
-    "url": "/img/barcode-identification.7e14a460.svg"
-  },
-  {
     "revision": "7147fc0c7ed71c3bdb55466c2479dce7",
     "url": "/img/bg12.7147fc0c.jpg"
   },
   {
-    "revision": "951d648f0d6ee6ed1b162ad1a1ced47f",
-    "url": "/img/dashboard.951d648f.svg"
+    "revision": "015b7fd26d2a4968fd5d86cfa1af7428",
+    "url": "/img/calendar.015b7fd2.svg"
   },
   {
-    "revision": "84274bc5db5318c3a671026cbafa5dba",
-    "url": "/img/failure.84274bc5.svg"
-  },
-  {
-    "revision": "56231ac6a4b39da75e7c3aaf050a00dc",
-    "url": "/img/file.56231ac6.svg"
-  },
-  {
-    "revision": "d2f7a2f606631c7cd8b769b3034948c0",
-    "url": "/img/gear.d2f7a2f6.svg"
+    "revision": "56de56b74b4c470a2faf228f81f73444",
+    "url": "/img/deadline.56de56b7.svg"
   },
   {
     "revision": "bb7dcf84940ef263c857cabff152c39d",
     "url": "/img/logo.bb7dcf84.png"
   },
   {
-    "revision": "21d590fa4bea0cca782bdee78ee095c1",
-    "url": "/img/protection.21d590fa.svg"
+    "revision": "5c92c6d6d048f4c32749b0a3c6c5ac74",
+    "url": "/img/messages.5c92c6d6.svg"
   },
   {
-    "revision": "82698f69c4d6216d7e9e98b4ed6e32b6",
-    "url": "/img/sla.82698f69.svg"
+    "revision": "307fcff3c653fd593751cd80926f6b46",
+    "url": "/img/reminder.307fcff3.svg"
   },
   {
-    "revision": "c96190ab27e1280b76aa905734c95c3f",
-    "url": "/img/status.c96190ab.svg"
+    "revision": "ac6eae0db83dd102c91bcba4efc8e22a",
+    "url": "/img/resume.ac6eae0d.svg"
   },
   {
-    "revision": "3f95dcabe09336c8b30d41082da3fe31",
-    "url": "/img/technician.3f95dcab.svg"
+    "revision": "68e9dbc2ba6407e7dd4dd46b7c6bc28b",
+    "url": "/img/tools.68e9dbc2.svg"
   },
   {
-    "revision": "950e0aa321ecd0444abfbb528c1d73d3",
-    "url": "/img/timer.950e0aa3.svg"
+    "revision": "b1898d3c6fbec597e45898f1de1fa707",
+    "url": "/img/view.b1898d3c.svg"
   },
   {
-    "revision": "44988e4913ffab6f8de7c419bb893b2c",
+    "revision": "3b16f58106a50ea79bfcb8ab4eae588e",
     "url": "/index.html"
   },
   {
-    "revision": "cf5adf7e640424c221a0",
-    "url": "/js/app.0a1b95c3.js"
+    "revision": "0faf9bb1620a5b13d0dd",
+    "url": "/js/app.89d8fd36.js"
   },
   {
     "revision": "2028ad26ce0028d164e9",
