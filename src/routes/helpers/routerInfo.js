@@ -6,7 +6,8 @@ const privateRoutes = [
   require('../public/create'),
   require('../public/read'),
   require('../public/delete'),
-  require('../public/update')
+  require('../public/update'),
+  require('../public/nodemail')
 ]
 
 module.exports = privateRoutes

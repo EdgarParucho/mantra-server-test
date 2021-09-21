@@ -4,6 +4,7 @@ import bcrypt from 'bcryptjs'
 import Client from '../../models/operations/client'
 import Product from '../../models/operations/product'
 import User from '../../models/general/user'
+import Email from '../../models/general/email'
 
 const router = express.Router()
 
@@ -42,10 +43,8 @@ router.put('/Product/:_id', async (req, res) => {
 
 router.put('/User/:_id', async (req, res) => {
   try {
-
     const { user } = req.user
     if (user.userRole > 1) return res.json({ error: 'Privilegios insuficientes' })
-
     const { _id } = req.params
     const body = req.body
     if (body.userPassword) {
@@ -58,6 +57,22 @@ router.put('/User/:_id', async (req, res) => {
     res.json(result)
   } catch (error) {
     res.status(500).json({ error })
+  }
+})
+
+router.put('/Email/:_id', async (req, res) => {
+  try {
+    const { user } = req.user
+    if (user.userRole > 1) return res.json({ error: 'Privilegios insuficientes' })
+    const { _id } = req.params
+    const body = req.body
+    const result = await Email.findOneAndUpdate({ _id }, body, { new: true })
+    res.json(result)
+  } catch (error) {
+    res.status(500).json({
+      mensaje: 'Error al actualizar "email"',
+      error
+    })
   }
 })
 
