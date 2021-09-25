@@ -4,14 +4,16 @@ import Office from '../../models/operations/office'
 import User from '../../models/general/user'
 
 const router = express.Router()
+const roleIsInsufficient = ({ userRole }) => userRole > 1
+const errorMessages = {
+  privileges: { error: 'Privilegios insuficientes' }
+}
 
 router.delete('/Product/:_id', async (req, res) => {
-
   const { user } = req.user
-  if (user.userRole > 1) return res.json({ error: 'Privilegios insuficientes' })
-
-  const { _id } = req.params
+  if (roleIsInsufficient(user)) return res.json(errorMessages.privileges)
   try {
+    const { _id } = req.params
     const result = await Product.findByIdAndDelete({ _id })
     res.json(result)
   } catch (error) {
@@ -23,10 +25,8 @@ router.delete('/Product/:_id', async (req, res) => {
 })
 
 router.delete('/Office/:_id', async (req, res) => {
-
   const { user } = req.user
-  if (user.userRole > 1) return res.json({ error: 'Privilegios insuficientes' })
-
+  if (roleIsInsufficient(user)) return res.json(errorMessages.privileges)
   try {
     const { _id } = req.params
     const result = await Office.findByIdAndDelete({ _id })
@@ -40,10 +40,8 @@ router.delete('/Office/:_id', async (req, res) => {
 })
 
 router.delete('/User/:_id', async (req, res) => {
-
   const { user } = req.user
-  if (user.userRole > 1) return res.json({ error: 'Privilegios insuficientes' })
-
+  if (roleIsInsufficient(user)) return res.json(errorMessages.privileges)
   try {
     const { _id } = req.params
     const result = await User.findByIdAndDelete({ _id }, { userPassword: 0 })

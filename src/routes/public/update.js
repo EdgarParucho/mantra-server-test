@@ -10,12 +10,21 @@ import Request from '../../models/storehouse/request'
 import Misc from '../../models/operations/misc'
 
 const router = express.Router()
+const roleIsInsufficient = ({ userRole }) => userRole > 2
+const departmentIsGranted = ({ department }, allowedDepartments) => allowedDepartments.includes(department)
+const errorMessages = {
+  privileges: { error: 'Privilegios insuficientes' },
+  department: { error: 'Función denegada al departamento registrado en tu cuenta' }
+}
 
 router.put('/Active/:id', async(req, res) => {
-  if (req.user.user.department !== 'Operaciones') return res.json({ error: `Función no permitida para el área de ${req.user.user.department}` })
-  const _id = req.params.id
-  const body = req.body
+  const { user } = req.user
+  const allowedDepartments = ['Operaciones']
+  if (roleIsInsufficient(user)) return res.json(errorMessages.privileges)
+  if (!departmentIsGranted (user, allowedDepartments)) return res.json(errorMessages.privileges)
   try {
+    const _id = req.params.id
+    const body = req.body
     const queryResult = await Active.findOneAndUpdate({ _id }, body, { new: true })
     res.json(queryResult)
   } catch (error) {
@@ -41,7 +50,10 @@ router.put('/Correlative', async (req, res) => {
 })
 
 router.put('/Closed/:id', async(req, res) => {
-  if (req.user.user.department !== 'Operaciones') return res.json({ error: `Función no permitida para el área de ${req.user.user.department}` })
+  const { user } = req.user
+  const allowedDepartments = ['Operaciones']
+  if (roleIsInsufficient(user)) return res.json(errorMessages.privileges)
+  if (!departmentIsGranted (user, allowedDepartments)) return res.json(errorMessages.privileges)
   const _id = req.params.id
   const body = req.body
   try {
@@ -56,7 +68,10 @@ router.put('/Closed/:id', async(req, res) => {
 })
 
 router.put('/Inventory/:id', async (req, res) => {
-  if (req.user.user.department !== 'Operaciones') return res.json({ error: `Función no permitida para el área de ${req.user.user.department}` })
+  const { user } = req.user
+  const allowedDepartments = ['Operaciones']
+  if (roleIsInsufficient(user)) return res.json(errorMessages.privileges)
+  if (!departmentIsGranted (user, allowedDepartments)) return res.json(errorMessages.privileges)
   try {
     const _id = req.params.id
     const newBody = req.body
@@ -73,7 +88,10 @@ router.put('/Inventory/:id', async (req, res) => {
 })
 
 router.put('/Maintenance/:id', async (req, res) => {
-  if (req.user.user.department !== 'Operaciones') return res.json({ error: `Función no permitida para el área de ${req.user.user.department}` })
+  const { user } = req.user
+  const allowedDepartments = ['Operaciones']
+  if (roleIsInsufficient(user)) return res.json(errorMessages.privileges)
+  if (!departmentIsGranted (user, allowedDepartments)) return res.json(errorMessages.privileges)
   try {
     const _id = req.params.id
     const newBody = req.body
@@ -90,7 +108,10 @@ router.put('/Maintenance/:id', async (req, res) => {
 })
 
 router.put('/Office/:id', async (req, res) => {
-  if (req.user.user.department !== 'Operaciones') return res.json({ error: `Función no permitida para el área de ${req.user.user.department}` })
+  const { user } = req.user
+  const allowedDepartments = ['Operaciones']
+  if (roleIsInsufficient(user)) return res.json(errorMessages.privileges)
+  if (!departmentIsGranted (user, allowedDepartments)) return res.json(errorMessages.privileges)
   try {
     const _id = req.params.id
     const body = req.body
@@ -105,9 +126,9 @@ router.put('/Office/:id', async (req, res) => {
 })
 
 router.put('/Piece/:id', async (req, res) => {
-  const _id = req.params.id
-  const body = req.body
   try {
+    const _id = req.params.id
+    const body = req.body
     console.log(body)
     const result =  await Piece.findOneAndUpdate({ _id }, body, { new: true })
     console.log(result)
@@ -120,9 +141,13 @@ router.put('/Piece/:id', async (req, res) => {
 })
 
 router.put('/Request/:id', async (req, res) => {
-  const _id = req.params.id
-  const body = req.body
+  const { user } = req.user
+  const allowedDepartments = ['Almacén']
+  if (roleIsInsufficient(user)) return res.json(errorMessages.privileges)
+  if (!departmentIsGranted (user, allowedDepartments)) return res.json(errorMessages.privileges)
   try {
+    const _id = req.params.id
+    const body = req.body
     const result =  await Request.findByIdAndUpdate({ _id }, body)
     res.json(result)
   } catch (error) {

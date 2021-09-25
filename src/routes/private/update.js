@@ -1,18 +1,20 @@
 import express from 'express'
 import bcrypt from 'bcryptjs'
-
 import Client from '../../models/operations/client'
 import Product from '../../models/operations/product'
 import User from '../../models/general/user'
 import Email from '../../models/general/email'
 
 const router = express.Router()
+const roleIsInsufficient = ({ userRole }) => userRole > 1
+const errorMessages = {
+  privileges: { error: 'Privilegios insuficientes' }
+}
 
 router.put('/Client/:_id', async(req, res) => {
+  const { user } = req.user
+  if (roleIsInsufficient(user)) return res.json(errorMessages.privileges)
   try {
-    const { user } = req.user
-    if (user.userRole > 1) return res.json({ error: 'Privilegios insuficientes' })
-
     const { _id } = req.params
     const body = req.body
     const result = await Client.findOneAndUpdate({ _id }, body, { new: true })
@@ -26,9 +28,9 @@ router.put('/Client/:_id', async(req, res) => {
 })
 
 router.put('/Product/:_id', async (req, res) => {
+  const { user } = req.user
+  if (roleIsInsufficient(user)) return res.json(errorMessages.privileges)
   try {
-    const { user } = req.user
-    if (user.userRole > 1) return res.json({ error: 'Privilegios insuficientes' })
     const { _id } = req.params
     const body = req.body
     const result = await Product.findOneAndUpdate({ _id }, body, { new: true })
@@ -42,9 +44,9 @@ router.put('/Product/:_id', async (req, res) => {
 })
 
 router.put('/User/:_id', async (req, res) => {
+  const { user } = req.user
+  if (roleIsInsufficient(user)) return res.json(errorMessages.privileges)
   try {
-    const { user } = req.user
-    if (user.userRole > 1) return res.json({ error: 'Privilegios insuficientes' })
     const { _id } = req.params
     const body = req.body
     if (body.userPassword) {
@@ -61,9 +63,9 @@ router.put('/User/:_id', async (req, res) => {
 })
 
 router.put('/Email/:_id', async (req, res) => {
+  const { user } = req.user
+  if (roleIsInsufficient(user)) return res.json(errorMessages.privileges)
   try {
-    const { user } = req.user
-    if (user.userRole > 1) return res.json({ error: 'Privilegios insuficientes' })
     const { _id } = req.params
     const body = req.body
     const result = await Email.findOneAndUpdate({ _id }, body, { new: true })

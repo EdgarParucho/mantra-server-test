@@ -9,10 +9,20 @@ import Piece from '../../models/storehouse/piece'
 import Request from '../../models/storehouse/request'
 
 const router = express.Router()
+const roleIsInsufficient = ({ userRole }) => userRole > 2
+const departmentIsGranted = ({ department }, allowedDepartments) => allowedDepartments.includes(department)
+const errorMessages = {
+  privileges: { error: 'Privilegios insuficientes' },
+  department: { error: 'Función denegada al departamento registrado en tu cuenta' }
+}
 
 router.post('/Active', async(req, res) => {
-  const body = req.body
+  const { user } = req.user
+  const allowedDepartments = ['Operaciones']
+  if (roleIsInsufficient(user)) return res.json(errorMessages.privileges)
+  if (!departmentIsGranted (user, allowedDepartments)) return res.json(errorMessages.privileges)
   try {
+    const body = req.body
     const result = await Active.create(body)
     res.status(200).json(result)
   } catch (error) {
@@ -25,9 +35,13 @@ router.post('/Active', async(req, res) => {
 })
 
 router.post('/Closed', async(req, res) => {
-  const body = Object.assign({}, req.body)
-  delete body._id
+  const { user } = req.user
+  const allowedDepartments = ['Operaciones']
+  if (roleIsInsufficient(user)) return res.json(errorMessages.privileges)
+  if (!departmentIsGranted (user, allowedDepartments)) return res.json(errorMessages.privileges)
   try {
+    const body = Object.assign({}, req.body)
+    delete body._id
     const result = await Closed.create(body)
     res.status(200).json(result)
   } catch (error) {
@@ -40,6 +54,10 @@ router.post('/Closed', async(req, res) => {
 })
 
 router.post('/Dispatch', async (req, res) => {
+  const { user } = req.user
+  const allowedDepartments = ['Almacén']
+  if (roleIsInsufficient(user)) return res.json(errorMessages.privileges)
+  if (!departmentIsGranted (user, allowedDepartments)) return res.json(errorMessages.privileges)
   try {
     delete req.body._id
     const result =  await Dispatch.create(req.body)
@@ -53,6 +71,10 @@ router.post('/Dispatch', async (req, res) => {
 })
 
 router.post('/Inventory', async (req, res) => {
+  const { user } = req.user
+  const allowedDepartments = ['Operaciones']
+  if (roleIsInsufficient(user)) return res.json(errorMessages.privileges)
+  if (!departmentIsGranted (user, allowedDepartments)) return res.json(errorMessages.privileges)
   try {
     const body = req.body
     const result = await Inventory.create(body)
@@ -66,6 +88,10 @@ router.post('/Inventory', async (req, res) => {
 })
 
 router.post('/Maintenance', async (req, res) => {
+  const { user } = req.user
+  const allowedDepartments = ['Operaciones']
+  if (roleIsInsufficient(user)) return res.json(errorMessages.privileges)
+  if (!departmentIsGranted (user, allowedDepartments)) return res.json(errorMessages.privileges)
   try {
     const body = req.body
     const result = await Maintenance.create(body)
@@ -79,6 +105,10 @@ router.post('/Maintenance', async (req, res) => {
 })
 
 router.post('/Office', async (req, res) => {
+  const { user } = req.user
+  const allowedDepartments = ['Operaciones']
+  if (roleIsInsufficient(user)) return res.json(errorMessages.privileges)
+  if (!departmentIsGranted (user, allowedDepartments)) return res.json(errorMessages.privileges)
   try {
     const body = req.body
     const result = await Office.create(body)
@@ -105,6 +135,10 @@ router.post('/Piece', async(req, res) => {
 })
 
 router.post('/Request', async (req, res) => {
+  const { user } = req.user
+  const allowedDepartments = ['Operaciones']
+  if (roleIsInsufficient(user)) return res.json(errorMessages.privileges)
+  if (!departmentIsGranted (user, allowedDepartments)) return res.json(errorMessages.privileges)
   try {
     const result =  await Request.create(req.body)
     res.json(result)
