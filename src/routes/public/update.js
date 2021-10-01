@@ -1,4 +1,5 @@
 import express from 'express'
+import bcrypt from 'bcryptjs'
 
 import Active from '../../models/operations/active'
 import Closed from '../../models/operations/closed'
@@ -8,6 +9,7 @@ import Office from '../../models/operations/office'
 import Piece from '../../models/storehouse/piece'
 import Request from '../../models/storehouse/request'
 import Misc from '../../models/operations/misc'
+import User from '../../models/general/user'
 
 const router = express.Router()
 const roleIsInsufficient = ({ userRole }) => userRole > 2
@@ -156,5 +158,23 @@ router.put('/Request/:id', async (req, res) => {
     })
   }
 })
+
+router.put('/UserPass/:_id', async (req, res) => {
+  try {
+    const { _id } = req.params
+    console.log(_id)
+    const body = req.body
+    console.log(body)
+    const salt = await bcrypt.genSalt(10)
+    body.userPassword = await bcrypt.hash(body.userPassword, salt)
+    const result = await User.findByIdAndUpdate(
+      { _id }, { userPassword: body.userPassword }
+    )
+    res.json(result)
+  } catch (error) {
+    res.status(500).json({ error })
+  }
+})
+
 
 module.exports = router
