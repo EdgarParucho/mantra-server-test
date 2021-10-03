@@ -159,17 +159,15 @@ router.put('/Request/:id', async (req, res) => {
   }
 })
 
-router.put('/UserPass/:_id', async (req, res) => {
+router.put('/Account/:_id', async (req, res) => {
   try {
     const { _id } = req.params
-    console.log(_id)
     const body = req.body
-    console.log(body)
-    const salt = await bcrypt.genSalt(10)
-    body.userPassword = await bcrypt.hash(body.userPassword, salt)
-    const result = await User.findByIdAndUpdate(
-      { _id }, { userPassword: body.userPassword }
-    )
+    if (body.userPassword) {
+      const salt = await bcrypt.genSalt(10)
+      body.userPassword = await bcrypt.hash(body.userPassword, salt)
+    }
+    const result = await User.findByIdAndUpdate({ _id }, body)
     res.json(result)
   } catch (error) {
     res.status(500).json({ error })
