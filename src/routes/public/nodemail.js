@@ -1,6 +1,5 @@
 import express from 'express'
 import nodemailer from 'nodemailer'
-// import { google } from 'googleapis'
 
 const router = express.Router()
 

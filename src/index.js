@@ -1,3 +1,5 @@
+if (process.env.NODE_ENV == 'development') require('dotenv').config()
+
 import express from 'express'
 import cors from 'cors'
 import path from 'path'
@@ -9,10 +11,6 @@ import router from './routes/helpers/routerInfo'
 
 const app = express()
 import('./database')
-
-if(process.env.NODE_ENV == 'development'){
-  require('dotenv').config()
-}
 
 const port = process.env.PORT || 3000
 
