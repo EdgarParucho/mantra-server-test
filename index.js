@@ -10,9 +10,12 @@ import router from './src/routes/helpers/routerInfo'
 const app = express()
 import('./src/database')
 
-if(process.env.NODE_ENV == 'development'){
-  require('dotenv').config()
-}
+console.log(process.env.MONGO_ATLAS);
+
+// if(process.env.NODE_ENV == 'development'){
+require('dotenv').config()
+// }
+console.log(process.env.MONGO_ATLAS);
 
 const port = process.env.PORT || 3000
 
