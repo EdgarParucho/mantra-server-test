@@ -4,15 +4,15 @@ import path from 'path'
 import morgan from 'morgan'
 import history from 'connect-history-api-fallback'
 
-import verifyToken from './src/routes/middleware/validateToken'
-import router from './src/routes/helpers/routerInfo'
+import verifyToken from './routes/middleware/validateToken'
+import router from './routes/helpers/routerInfo'
 
 const app = express()
-import('./src/database')
+import('./database')
 
-console.log(process.env.MONGO_ATLAS);
-
-require('dotenv').config()
+if(process.env.NODE_ENV == 'development'){
+  require('dotenv').config()
+}
 
 const port = process.env.PORT || 3000
 
@@ -21,7 +21,7 @@ app.use(history())
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(express.static(path.join(__dirname, './public')))
+app.use(express.static(path.join(__dirname, '../public')))
 app.use('/api', verifyToken, router)
 
 app.listen(port, () => console.log(`Running on port: ${port}`))
