@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/precache-manifest.8533001cfee45ca5575fb6175670eb99.js"
+  "/precache-manifest.ab79ca73d305847701c47840892da9e1.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "mantra_ui"});
